@@ -1,20 +1,20 @@
 
-# react-native-progress-hud
+# progress-hud
 ![Platform](https://img.shields.io/badge/platform-react--native%20%5Bios%20%26%20android%5D-blue.svg)
 ![License](https://img.shields.io/npm/l/express.svg)
 
-`react-native-progress-hud` is a Native Module for react-native that uses [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD) on iOS and [KProgressHUD](https://github.com/Kaopiz/KProgressHUD) on Android.
+`progress-hud` is a Native Module for react-native that uses [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD) on iOS and [KProgressHUD](https://github.com/Kaopiz/KProgressHUD) on Android.
 
 ## Getting started
-`$ npm install react-native-progress-hud --save`
+`$ npm install progress-hud --save`
 
 ### Mostly automatic installation
-`$ react-native link react-native-progress-hud`
+`$ react-native link progress-hud`
 
 ### Manual installation
 #### iOS
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-progress-hud` and add `RNProgressHud.xcodeproj`
+2. Go to `node_modules` ➜ `progress-hud` and add `RNProgressHud.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNProgressHud.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Run your project (`Cmd+R`)<
 
@@ -24,22 +24,22 @@
   - Add `new RNProgressHudPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
   	```
-  	include ':react-native-progress-hud'
-  	project(':react-native-progress-hud').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-progress-display/android')
+  	include ':progress-hud'
+  	project(':progress-hud').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-progress-display/android')
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      implementation project(':react-native-progress-hud')
+      implementation project(':progress-hud')
   	```
 
 ### iOS Dependency Installation:
 ***Important: This package depends on SVProgressHUD library. Please make sure you also install SVProgressHUD***
 1. Go to <https://github.com/SVProgressHUD/SVProgressHUD>
-2. Follow the installation instructions and install before trying to run your project with the react-native-progress-hud package installed.
+2. Follow the installation instructions and install before trying to run your project with the progress-hud package installed.
 
 ## Usage
 ```javascript
-import RNProgressHud from 'react-native-progress-hud';
+import RNProgressHud from 'progress-hud';
 ```
 
 Showing a loading spinner with message:
