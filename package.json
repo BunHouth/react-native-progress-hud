@@ -1,18 +1,30 @@
-
 {
   "name": "react-native-progress-hud",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "description": "React Native wrapper for SVProgressHUD library on iOS and KProgressHUD library on Android.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "react-component",
+    "ios",
+    "android",
+    "mobile",
+    "loading-spinner",
+    "progress-hud",
+    "cocoapod"
   ],
-  "author": "",
-  "license": "",
-  "peerDependencies": {
-    "react-native": "^0.41.2",
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bunhouth/react-native-progress-hud.git"
+  },
+  "author": {
+    "name": "bunhouth",
+    "email": "bunhouth99@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/bunhouth/react-native-progress-hud",
+
 }
