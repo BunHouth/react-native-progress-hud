@@ -34,7 +34,7 @@ public class RNProgressHudModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "RNProgressHUD";
+        return "RNProgressHud";
     }
 
     public RNProgressHudModule(ReactApplicationContext context) {

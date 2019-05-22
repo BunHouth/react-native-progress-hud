@@ -4,6 +4,6 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
-@interface RNProgressHUD : NSObject <RCTBridgeModule>
+@interface RNProgressHud : NSObject <RCTBridgeModule>
 
 @end

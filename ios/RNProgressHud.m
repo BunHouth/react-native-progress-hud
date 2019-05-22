@@ -1,11 +1,11 @@
-#import "RNProgressHUD.h"
+#import "RNProgressHud.h"
 #if __has_include("SVProgressHUD.h")
 #import "SVProgressHUD.h"
 #else
 #import <SVProgressHUD/SVProgressHUD.h>
 #endif
 
-@implementation RNProgressHUD
+@implementation RNProgressHud
 
 #pragma mark - RCTBridgeModule
 
@@ -20,7 +20,7 @@ RCT_EXPORT_METHOD(show) {
 }
 
 RCT_EXPORT_METHOD(showWithMaskType:(NSNumber * _Nonnull)maskTypeNumber) {
-  [RNProgressHUD setMaskTypeForNumber:maskTypeNumber];
+  [RNProgressHud setMaskTypeForNumber:maskTypeNumber];
   [SVProgressHUD show];
 }
 
@@ -29,7 +29,7 @@ RCT_EXPORT_METHOD(showWithStatus:(NSString * _Nullable)status) {
 }
 
 RCT_EXPORT_METHOD(showWithStatusAndMaskType:(NSString * _Nullable)status :(NSNumber * _Nonnull)maskTypeNumber) {
-  [RNProgressHUD setMaskTypeForNumber:maskTypeNumber];
+  [RNProgressHud setMaskTypeForNumber:maskTypeNumber];
   [SVProgressHUD showWithStatus:status];
 }
 
@@ -38,7 +38,7 @@ RCT_EXPORT_METHOD(showInfoWithStatus:(NSString * _Nullable)status) {
 }
 
 RCT_EXPORT_METHOD(showInfoWithStatusAndMaskType:(NSString * _Nullable)status :(NSNumber * _Nonnull)maskTypeNumber) {
-  [RNProgressHUD setMaskTypeForNumber:maskTypeNumber];
+  [RNProgressHud setMaskTypeForNumber:maskTypeNumber];
   [SVProgressHUD showInfoWithStatus:status];
 }
 
@@ -47,7 +47,7 @@ RCT_EXPORT_METHOD(showSuccessWithStatus:(NSString * _Nullable)status) {
 }
 
 RCT_EXPORT_METHOD(showSuccessWithStatusAndMaskType:(NSString * _Nullable)status :(NSNumber * _Nonnull)maskTypeNumber) {
-  [RNProgressHUD setMaskTypeForNumber:maskTypeNumber];
+  [RNProgressHud setMaskTypeForNumber:maskTypeNumber];
   [SVProgressHUD showSuccessWithStatus:status];
 }
 
@@ -56,7 +56,7 @@ RCT_EXPORT_METHOD(showErrorWithStatus:(NSString * _Nullable)status) {
 }
 
 RCT_EXPORT_METHOD(showErrorWithStatusAndMaskType:(NSString * _Nullable)status :(NSNumber * _Nonnull)maskTypeNumber) {
-  [RNProgressHUD setMaskTypeForNumber:maskTypeNumber];
+  [RNProgressHud setMaskTypeForNumber:maskTypeNumber];
   [SVProgressHUD showErrorWithStatus:status];
 }
 
@@ -65,7 +65,7 @@ RCT_EXPORT_METHOD(showProgressWithStatus:(CGFloat)progress :(NSString * _Nullabl
 }
 
 RCT_EXPORT_METHOD(showProgressWithStatusAndMaskType:(CGFloat)progress :(NSString * _Nullable)status :(NSNumber * _Nonnull)maskTypeNumber) {
-  [RNProgressHUD setMaskTypeForNumber:maskTypeNumber];
+  [RNProgressHud setMaskTypeForNumber:maskTypeNumber];
   [SVProgressHUD showProgress:progress status:status];
   if (progress >= 1.0) {
     [SVProgressHUD dismissWithDelay:0.5f];
@@ -104,7 +104,7 @@ RCT_EXPORT_METHOD(dismissWithDelay:(CGFloat)delay) {
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     return;
   }
-  SVProgressHUDMaskType type = [RNProgressHUD getMaskTypeForInteger:[number integerValue]];
+  SVProgressHUDMaskType type = [RNProgressHud getMaskTypeForInteger:[number integerValue]];
   [SVProgressHUD setDefaultMaskType:type];
 }
 

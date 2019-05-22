@@ -6,62 +6,62 @@ const ProgressHUDMaskType = {
   Black: 3
 };
 
-const {RNProgressHUD} = NativeModules;
+const {RNProgressHub} = NativeModules;
 module.exports = {
   ProgressHUDMaskType,
   show(progressHUDMaskType) {
     if (!progressHUDMaskType) {
-      return RNProgressHUD.show();
+      return RNProgressHub.show();
     }
-    return RNProgressHUD.showWithMaskType(progressHUDMaskType);
+    return RNProgressHub.showWithMaskType(progressHUDMaskType);
   },
   showWithStatus(status, progressHUDMaskType) {
     if (!progressHUDMaskType) {
-      return RNProgressHUD.showWithStatus(status);
+      return RNProgressHub.showWithStatus(status);
     }
-    return RNProgressHUD.showWithStatusAndMaskType(status, progressHUDMaskType);
+    return RNProgressHub.showWithStatusAndMaskType(status, progressHUDMaskType);
   },
   showInfoWithStatus(status, progressHUDMaskType) {
     if (!progressHUDMaskType) {
-      return RNProgressHUD.showInfoWithStatus(status);
+      return RNProgressHub.showInfoWithStatus(status);
     }
-    return RNProgressHUD.showInfoWithStatusAndMaskType(
+    return RNProgressHub.showInfoWithStatusAndMaskType(
       status,
       progressHUDMaskType
     );
   },
   showSuccessWithStatus(status, progressHUDMaskType) {
     if (!progressHUDMaskType) {
-      return RNProgressHUD.showSuccessWithStatus(status);
+      return RNProgressHub.showSuccessWithStatus(status);
     }
-    return RNProgressHUD.showSuccessWithStatusAndMaskType(
+    return RNProgressHub.showSuccessWithStatusAndMaskType(
       status,
       progressHUDMaskType
     );
   },
   showErrorWithStatus(status, progressHUDMaskType) {
     if (!progressHUDMaskType) {
-      return RNProgressHUD.showErrorWithStatus(status);
+      return RNProgressHub.showErrorWithStatus(status);
     }
-    return RNProgressHUD.showErrorWithStatusAndMaskType(
+    return RNProgressHub.showErrorWithStatusAndMaskType(
       status,
       progressHUDMaskType
     );
   },
   showProgressWithStatus(progress, status, progressHUDMaskType) {
     if (!progressHUDMaskType) {
-      return RNProgressHUD.showProgressWithStatus(progress, status);
+      return RNProgressHub.showProgressWithStatus(progress, status);
     }
-    return RNProgressHUD.showProgressWithStatusAndMaskType(
+    return RNProgressHub.showProgressWithStatusAndMaskType(
       progress,
       status,
       progressHUDMaskType
     );
   },
   dismiss() {
-    RNProgressHUD.dismiss();
+    RNProgressHub.dismiss();
   },
   dismissWithDelay(delayInSeconds) {
-    RNProgressHUD.dismissWithDelay(delayInSeconds);
+    RNProgressHub.dismissWithDelay(delayInSeconds);
   }
 };
