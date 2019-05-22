@@ -1,6 +1,6 @@
 {
   "name": "progress-hud",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "description": "React Native wrapper for SVProgressHUD library on iOS and KProgressHUD library on Android.",
   "scripts": {
