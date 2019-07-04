@@ -1,12 +1,12 @@
 buildscript {
-  repositories {
-    jcenter()
-    google()
-  }
+    repositories {
+        jcenter()
+        google()
+    }
 
-  dependencies {
-    classpath 'com.android.tools.build:gradle:3.1.4'
-  }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+    }
 }
 
 apply plugin: 'com.android.library'
@@ -17,25 +17,25 @@ def safeExtGet(prop, fallback) {
 
 
 android {
-  compileSdkVersion safeExtGet('compileSdkVersion', 26)
-  buildToolsVersion safeExtGet('buildToolsVersion', '26.0.3')
+    compileSdkVersion safeExtGet('compileSdkVersion', 28)
+    buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
 
-  defaultConfig {
-    minSdkVersion safeExtGet('minSdkVersion', 16)
-    targetSdkVersion safeExtGet('targetSdkVersion', 26)
-    versionCode 1
-    versionName "1.0"
-  }
-  lintOptions {
-    abortOnError false
-  }
+    defaultConfig {
+        minSdkVersion safeExtGet('minSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 26)
+        versionCode 1
+        versionName "1.0"
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  implementation 'com.kaopiz:kprogresshud:1.1.0'
-  implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 }
