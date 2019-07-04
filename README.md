@@ -11,6 +11,10 @@
 ### Mostly automatic installation
 `$ react-native link progress-hud`
 
+__NOTE__
+  - if RN < 0.60
+    `$ npm install progress-hud@1.1.0`
+
 ### Manual installation
 #### iOS
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
