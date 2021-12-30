@@ -10,8 +10,6 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.kaopiz.kprogresshud.KProgressHUD;
-import com.kaopiz.kprogresshud.KProgressHUD.Style;
 
 enum KProgressHUDMaskType {
     None,
@@ -211,10 +209,10 @@ public class RNProgressHudModule extends ReactContextBaseJavaModule {
         int res = 0;
         switch (style) {
             case Default:
-                progressHUD.setStyle(Style.SPIN_INDETERMINATE);
+                progressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
                 return;
             case Progress:
-                progressHUD.setStyle(Style.ANNULAR_DETERMINATE);
+                progressHUD.setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE);
                 return;
             case Error:
                 res = R.drawable.ic_error;

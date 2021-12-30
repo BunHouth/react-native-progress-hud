@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
 
@@ -36,6 +36,5 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 }
