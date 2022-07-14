@@ -1,5 +1,5 @@
 require 'json'
-package = JSON.parse(File.read('../package.json'))
+package = JSON.parse(File.read('./package.json'))
 
 Pod::Spec.new do |s|
   s.name         = "RNProgressHud"
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author             = { "author" => "bunhouth99@gmail.com" }
   s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/bunhouth/react-native-progress-hud.git", :tag => "master" }
-  s.source_files  = "*.{h,m}"
+  s.source_files  = "ios/*.{h,m}"
   s.requires_arc = true
 
 
