@@ -1,166 +1,179 @@
-  
-
 # progress-hud
 
 ![Platform](https://img.shields.io/badge/platform-react--native%20%5Bios%20%26%20android%5D-blue.svg)
-
 ![License](https://img.shields.io/npm/l/express.svg)
 
-  
+`progress-hud` is a Native Module for React Native that uses [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD) on iOS and [KProgressHUD](https://github.com/Kaopiz/KProgressHUD) on Android.
 
-`progress-hud` is a Native Module for react-native that uses [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD) on iOS and [KProgressHUD](https://github.com/Kaopiz/KProgressHUD) on Android.
+## Compatibility
 
-  
+| Version | React Native | iOS | Android |
+|---------|-------------|-----|---------|
+| 2.x     | >= 0.73     | >= 13.4 | API 23+ |
+| 1.x     | < 0.73      | >= 9.0 | API 16+ |
 
-## Getting started
+## Installation
 
-`$ npm install progress-hud --save`
-
-`$ yarn add progress-hud`
-
-  
-
-### Mostly automatic installation
-
-__RN < 60 Only__
-
-`$ react-native link progress-hud`
-
-  
-
-__NOTE__
-
-- if RN < 0.60
-
-`$ npm install progress-hud@1.1.0`
-
-  
-
-### Manual installation
-
-#### iOS
-
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-
-2. Go to `node_modules` ➜ `progress-hud` and add `RNProgressHud.xcodeproj`
-
-3. In XCode, in the project navigator, select your project. Add `libRNProgressHud.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-
-4. Run your project (`Cmd+R`)<
-
-  
-
-#### Android
-
-1. Open up `android/app/src/main/java/[...]/MainActivity.java`
-
-- Add `import com.progresshud.RNProgressHudPackage;` to the imports at the top of the file
-
-- Add `new RNProgressHudPackage()` to the list returned by the `getPackages()` method
-
-2. Append the following lines to `android/settings.gradle`:
-
+```bash
+npm install progress-hud --save
+# or
+yarn add progress-hud
 ```
 
-include ':progress-hud'
+### iOS Setup
 
-project(':progress-hud').projectDir = new File(rootProject.projectDir, '../node_modules/progress-hud/android')
+After installing the package, install the CocoaPods dependencies:
 
+```bash
+cd ios && pod install
 ```
 
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
+**Note:** This package depends on `SVProgressHUD`. It will be automatically installed via CocoaPods.
 
-```
+### Android Setup
 
-implementation project(':progress-hud')
-
-```
-
-  
-
-### iOS Dependency Installation:
-
-***Important: This package depends on SVProgressHUD library. Please make sure you also install SVProgressHUD***
-
-1. Go to <https://github.com/SVProgressHUD/SVProgressHUD>
-
-2. Follow the installation instructions and install before trying to run your project with the progress-hud package installed.
-
-  
+No additional setup required! The library uses auto-linking.
 
 ## Usage
 
 ```javascript
-
-import  RNProgressHud  from  'progress-hud';
-
+import RNProgressHud from 'progress-hud';
 ```
 
-  
-
-Showing a loading spinner with message:
+### Show Loading Spinner
 
 ```javascript
+// Simple spinner
+RNProgressHud.show();
 
-// Where you want to display the spinner
-
+// Spinner with message
 RNProgressHud.showWithStatus("Loading...");
-
 ```
 
-  
-
-Showing a loading spinner with message and mask type:
+### Show with Mask Type
 
 ```javascript
+const { ProgressHUDMaskType } = RNProgressHud;
 
-// To use one of the pre-defined styles for background color:
-
-const  ProgressHUDMaskType = RNProgressHud.ProgressHUDMaskType;
-
+// Clear background (user can see through)
 RNProgressHud.showWithStatus("Loading...", ProgressHUDMaskType.Clear);
 
+// Black dimmed background (default)
+RNProgressHud.showWithStatus("Loading...", ProgressHUDMaskType.Black);
+
+// No mask (user can interact with UI)
+RNProgressHud.showWithStatus("Loading...", ProgressHUDMaskType.None);
 ```
 
-  
-
-Show circular progress view:
+### Show Success/Error/Info
 
 ```javascript
-
-// Input progress parameter must be a double or float with a range of 0.0 to 1.0 representing 0% and 100%.
-
-// This will not automatically dismiss spinner unless progress reaches 100%. Otherwise, dismiss() must be called explicitly.
-
-  
-
-RNProgressHud.showProgressWithStatus(0.25, "Downloading data...");
-
+// These will auto-dismiss after a short delay
+RNProgressHud.showSuccessWithStatus("Saved!");
+RNProgressHud.showErrorWithStatus("Failed to save");
+RNProgressHud.showInfoWithStatus("No items found");
 ```
 
-  
-
-Dismiss:
+### Show Progress
 
 ```javascript
+// Progress value should be between 0.0 and 1.0
+RNProgressHud.showProgressWithStatus(0.5, "Downloading...");
 
+// Auto-dismisses when progress reaches 1.0
+```
+
+### Dismiss
+
+```javascript
+// Dismiss immediately
 RNProgressHud.dismiss();
 
+// Dismiss after delay (in seconds)
+RNProgressHud.dismissWithDelay(1.5);
 ```
 
-  
+## API Reference
 
-Dismiss with a delay (in seconds):
+### Methods
+
+| Method | Parameters | Description |
+|--------|------------|-------------|
+| `show` | `maskType?: MaskType` | Show loading spinner |
+| `showWithStatus` | `status: string, maskType?: MaskType` | Show spinner with text |
+| `showInfoWithStatus` | `status: string, maskType?: MaskType` | Show info icon (auto-dismiss) |
+| `showSuccessWithStatus` | `status: string, maskType?: MaskType` | Show success icon (auto-dismiss) |
+| `showErrorWithStatus` | `status: string, maskType?: MaskType` | Show error icon (auto-dismiss) |
+| `showProgressWithStatus` | `progress: number, status: string, maskType?: MaskType` | Show progress (0.0-1.0) |
+| `dismiss` | - | Dismiss immediately |
+| `dismissWithDelay` | `delayInSeconds: number` | Dismiss after delay |
+
+### Mask Types
+
+| Type | Value | Description |
+|------|-------|-------------|
+| `None` | 1 | Transparent, user can interact |
+| `Clear` | 2 | Clear overlay, blocks interaction |
+| `Black` | 3 | Semi-transparent black overlay (default) |
+
+## TypeScript Support
+
+This package includes TypeScript definitions. Import types as needed:
+
+```typescript
+import RNProgressHud, { ProgressHUDMaskType, MaskType } from 'progress-hud';
+```
+
+## Example
 
 ```javascript
+import RNProgressHud from 'progress-hud';
 
-RNProgressHud.dismissWithDelay(1.0); // Dismisses after one second.
+async function fetchData() {
+  const { ProgressHUDMaskType } = RNProgressHud;
 
+  try {
+    RNProgressHud.showWithStatus("Loading...", ProgressHUDMaskType.Clear);
+
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+
+    RNProgressHud.showSuccessWithStatus("Loaded!");
+    return data;
+  } catch (error) {
+    RNProgressHud.showErrorWithStatus("Failed to load");
+    throw error;
+  }
+}
+
+// Progress example
+function uploadFile() {
+  let progress = 0;
+
+  const interval = setInterval(() => {
+    progress += 0.1;
+    RNProgressHud.showProgressWithStatus(progress, `${Math.round(progress * 100)}%`);
+
+    if (progress >= 1.0) {
+      clearInterval(interval);
+    }
+  }, 200);
+}
 ```
 
-  
-  
+## Legacy Installation (RN < 0.60)
 
-# Credit
+For React Native versions below 0.60, use version 1.x:
+
+```bash
+npm install progress-hud@1.1.0 --save
+react-native link progress-hud
+```
+
+## Credit
 
 [medlmobileenterprises](https://github.com/medlmobileenterprises/react-native-progress-display)
+
+## License
+
+MIT

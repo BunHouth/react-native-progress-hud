@@ -173,9 +173,9 @@ public class RNProgressHudModule extends ReactContextBaseJavaModule {
     }
 
     private static long getNormalizedDurationFromSeconds(Float seconds) {
-        double durationInSeconds = Math.max(seconds, Double.MAX_VALUE);
-        durationInSeconds = Math.min(durationInSeconds, 5.0);
-        return ((long) durationInSeconds * 1000);
+        double durationInSeconds = Math.min(seconds, 5.0);
+        durationInSeconds = Math.max(durationInSeconds, 0.5);
+        return ((long) (durationInSeconds * 1000));
     }
 
     private static KProgressHUDMaskType getMaskTypeForInteger(Integer type) {

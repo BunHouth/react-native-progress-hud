@@ -8,14 +8,12 @@ Pod::Spec.new do |s|
   s.description  = package['description']
   s.homepage     = package['homepage']
   s.license      = "MIT"
-  s.author             = { "author" => "bunhouth99@gmail.com" }
-  s.platform     = :ios, "9.0"
-  s.source       = { :git => "https://github.com/bunhouth/react-native-progress-hud.git", :tag => "master" }
-  s.source_files  = "ios/*.{h,m}"
+  s.author       = { "author" => "bunhouth99@gmail.com" }
+  s.platform     = :ios, "13.4"
+  s.source       = { :git => "https://github.com/bunhouth/react-native-progress-hud.git", :tag => "v#{s.version}" }
+  s.source_files = "ios/*.{h,m}"
   s.requires_arc = true
-
 
   s.dependency "React-Core"
   s.dependency "SVProgressHUD"
-
 end

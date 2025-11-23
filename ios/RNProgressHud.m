@@ -94,7 +94,6 @@ RCT_EXPORT_METHOD(dismissWithDelay:(CGFloat)delay) {
     case 3:
       type = SVProgressHUDMaskTypeBlack;
       break;
-      break;
   }
   return type;
 }

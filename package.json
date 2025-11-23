@@ -1,7 +1,9 @@
 {
   "name": "progress-hud",
-  "version": "1.3.2",
+  "version": "2.0.0",
   "main": "index.js",
+  "types": "index.d.ts",
+  "react-native": "index.js",
   "description": "React Native wrapper for SVProgressHUD library on iOS and KProgressHUD library on Android.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,5 +28,21 @@
     "email": "bunhouth99@gmail.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/bunhouth/react-native-progress-hud"
+  "homepage": "https://github.com/bunhouth/react-native-progress-hud",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.73.0"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "react-native.config.js",
+    "ios/",
+    "android/",
+    "RNProgressHud.podspec",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
 }
