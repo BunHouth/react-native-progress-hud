@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark mode colors - slightly lighter background for better visibility -->
+    <color name="kprogresshud_default_color">#cc1a1a1a</color>
+    <color name="kprogresshud_grey_color">#66757575</color>
+</resources>

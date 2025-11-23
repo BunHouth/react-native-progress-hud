@@ -24,6 +24,10 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 class AnnularView extends View implements Determinate {
 
     private Paint mWhitePaint;
@@ -32,22 +36,22 @@ class AnnularView extends View implements Determinate {
     private int mMax = 100;
     private int mProgress = 0;
 
-    public AnnularView(Context context) {
+    public AnnularView(@NonNull Context context) {
         super(context);
         init(context);
     }
 
-    public AnnularView(Context context, AttributeSet attrs) {
+    public AnnularView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public AnnularView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AnnularView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
-    private void init(Context context){
+    private void init(@NonNull Context context) {
         mWhitePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mWhitePaint.setStyle(Paint.Style.STROKE);
         mWhitePaint.setStrokeWidth(Helper.dpToPixel(3, getContext()));
@@ -56,9 +60,10 @@ class AnnularView extends View implements Determinate {
         mGreyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mGreyPaint.setStyle(Paint.Style.STROKE);
         mGreyPaint.setStrokeWidth(Helper.dpToPixel(3, getContext()));
-        mGreyPaint.setColor(context.getResources().getColor(R.color.kprogresshud_grey_color));
+        mGreyPaint.setColor(ContextCompat.getColor(context, R.color.kprogresshud_grey_color));
 
         mBound = new RectF();
+        setContentDescription("Progress indicator");
     }
 
     @Override
@@ -69,7 +74,7 @@ class AnnularView extends View implements Determinate {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         float mAngle = mProgress * 360f / mMax;
         canvas.drawArc(mBound, 270, mAngle, false, mWhitePaint);
@@ -91,6 +96,7 @@ class AnnularView extends View implements Determinate {
     @Override
     public void setProgress(int progress) {
         mProgress = progress;
+        setContentDescription("Progress: " + progress + "%");
         invalidate();
     }
 }

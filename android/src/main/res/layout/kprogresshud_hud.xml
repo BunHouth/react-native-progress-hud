@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.progresshud.BackgroundLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/background"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:background="@android:color/transparent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:importantForAccessibility="yes"
+    android:contentDescription="@null">
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="yes" />
 
     <TextView
         android:id="@+id/label"
@@ -22,7 +26,10 @@
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:maxWidth="200dp"
+        android:gravity="center"
+        tools:text="Loading..." />
 
     <TextView
         android:id="@+id/details_label"
@@ -30,5 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:textSize="13sp"/>
+        android:textSize="13sp"
+        android:maxWidth="200dp"
+        android:gravity="center"
+        tools:text="Please wait" />
 </com.progresshud.BackgroundLayout>

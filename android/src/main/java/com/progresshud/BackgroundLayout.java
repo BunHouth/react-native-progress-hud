@@ -16,37 +16,37 @@
 
 package com.progresshud;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 class BackgroundLayout extends LinearLayout {
 
     private float mCornerRadius;
     private int mBackgroundColor;
 
-    public BackgroundLayout(Context context) {
+    public BackgroundLayout(@NonNull Context context) {
         super(context);
         init();
     }
 
-    public BackgroundLayout(Context context, AttributeSet attrs) {
+    public BackgroundLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public BackgroundLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BackgroundLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    @SuppressWarnings("deprecation")
     private void init() {
-        int color = getContext().getResources().getColor(R.color.kprogresshud_default_color);
+        int color = ContextCompat.getColor(getContext(), R.color.kprogresshud_default_color);
         initBackground(color, mCornerRadius);
     }
 
@@ -55,12 +55,7 @@ class BackgroundLayout extends LinearLayout {
         drawable.setShape(GradientDrawable.RECTANGLE);
         drawable.setColor(color);
         drawable.setCornerRadius(cornerRadius);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setBackground(drawable);
-        } else {
-            //noinspection deprecation
-            setBackgroundDrawable(drawable);
-        }
+        setBackground(drawable);
     }
 
     public void setCornerRadius(float radius) {

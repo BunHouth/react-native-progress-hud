@@ -19,37 +19,38 @@ package com.progresshud;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-class SpinView extends ImageView implements Indeterminate {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+
+class SpinView extends AppCompatImageView implements Indeterminate {
 
     private float mRotateDegrees;
     private int mFrameTime;
     private boolean mNeedToUpdateView;
     private Runnable mUpdateViewRunnable;
 
-    public SpinView(Context context) {
+    public SpinView(@NonNull Context context) {
         super(context);
         init();
     }
 
-    public SpinView(Context context, AttributeSet attrs) {
+    public SpinView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     private void init() {
         setImageResource(R.drawable.kprogresshud_spinner);
+        setContentDescription("Loading");
         mFrameTime = 1000 / 12;
-        mUpdateViewRunnable = new Runnable() {
-            @Override
-            public void run() {
-                mRotateDegrees += 30;
-                mRotateDegrees = mRotateDegrees < 360 ? mRotateDegrees : mRotateDegrees - 360;
-                invalidate();
-                if (mNeedToUpdateView) {
-                    postDelayed(this, mFrameTime);
-                }
+        mUpdateViewRunnable = () -> {
+            mRotateDegrees += 30;
+            mRotateDegrees = mRotateDegrees < 360 ? mRotateDegrees : mRotateDegrees - 360;
+            invalidate();
+            if (mNeedToUpdateView) {
+                postDelayed(mUpdateViewRunnable, mFrameTime);
             }
         };
     }
@@ -60,8 +61,8 @@ class SpinView extends ImageView implements Indeterminate {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.rotate(mRotateDegrees, getWidth() / 2, getHeight() / 2);
+    protected void onDraw(@NonNull Canvas canvas) {
+        canvas.rotate(mRotateDegrees, getWidth() / 2f, getHeight() / 2f);
         super.onDraw(canvas);
     }
 

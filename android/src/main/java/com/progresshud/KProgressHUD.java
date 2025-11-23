@@ -16,7 +16,6 @@
 
 package com.progresshud;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,18 +32,21 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 public class KProgressHUD {
 
     public enum Style {
         SPIN_INDETERMINATE, PIE_DETERMINATE, ANNULAR_DETERMINATE, BAR_DETERMINATE
     }
 
-    // To avoid redundant APIs, make the HUD as a wrapper class around a Dialog
-    private ProgressDialog mProgressDialog;
+    private final ProgressDialog mProgressDialog;
     private float mDimAmount;
     private int mWindowColor;
     private float mCornerRadius;
-    private Context mContext;
+    private final Context mContext;
 
     private int mAnimateSpeed;
 
@@ -54,12 +57,11 @@ public class KProgressHUD {
     private Handler mGraceTimer;
     private boolean mFinished;
 
-    public KProgressHUD(Context context) {
+    public KProgressHUD(@NonNull Context context) {
         mContext = context;
         mProgressDialog = new ProgressDialog(context);
         mDimAmount = 0;
-        //noinspection deprecation
-        mWindowColor = context.getResources().getColor(R.color.kprogresshud_default_color);
+        mWindowColor = ContextCompat.getColor(context, R.color.kprogresshud_default_color);
         mAnimateSpeed = 1;
         mCornerRadius = 10;
         mIsAutoDismiss = true;
@@ -75,18 +77,20 @@ public class KProgressHUD {
      * @param context Activity context that the HUD bound to
      * @return An unique HUD instance
      */
-    public static KProgressHUD create(Context context) {
+    @NonNull
+    public static KProgressHUD create(@NonNull Context context) {
         return new KProgressHUD(context);
     }
 
-  /**
-   * Create a new HUD. specify the HUD style (if you use a custom view, you need {@code KProgressHUD.create(Context context)}).
-   *
-   * @param context Activity context that the HUD bound to
-   * @param style One of the KProgressHUD.Style values
-   * @return An unique HUD instance
-   */
-    public static KProgressHUD create(Context context, Style style) {
+    /**
+     * Create a new HUD. specify the HUD style (if you use a custom view, you need {@code KProgressHUD.create(Context context)}).
+     *
+     * @param context Activity context that the HUD bound to
+     * @param style One of the KProgressHUD.Style values
+     * @return An unique HUD instance
+     */
+    @NonNull
+    public static KProgressHUD create(@NonNull Context context, @NonNull Style style) {
         return new KProgressHUD(context).setStyle(style);
     }
 
@@ -95,7 +99,8 @@ public class KProgressHUD {
      * @param style One of the KProgressHUD.Style values
      * @return Current HUD
      */
-    public KProgressHUD setStyle(Style style) {
+    @NonNull
+    public KProgressHUD setStyle(@NonNull Style style) {
         View view = null;
         switch (style) {
             case SPIN_INDETERMINATE:
@@ -110,7 +115,6 @@ public class KProgressHUD {
             case BAR_DETERMINATE:
                 view = new BarView(mContext);
                 break;
-            // No custom view style here, because view will be added later
         }
         mProgressDialog.setView(view);
         return this;
@@ -121,6 +125,7 @@ public class KProgressHUD {
      * @param dimAmount May take value from 0 to 1. Default to 0 (no dimming)
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setDimAmount(float dimAmount) {
         if (dimAmount >= 0 && dimAmount <= 1) {
             mDimAmount = dimAmount;
@@ -134,6 +139,7 @@ public class KProgressHUD {
      * @param height in dp
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setSize(int width, int height) {
         mProgressDialog.setSize(width, height);
         return this;
@@ -145,6 +151,7 @@ public class KProgressHUD {
      * @return Current HUD
      */
     @Deprecated
+    @NonNull
     public KProgressHUD setWindowColor(int color) {
         mWindowColor = color;
         return this;
@@ -155,6 +162,7 @@ public class KProgressHUD {
      * @param color ARGB color
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setBackgroundColor(int color) {
         mWindowColor = color;
         return this;
@@ -165,6 +173,7 @@ public class KProgressHUD {
      * @param radius Corner radius in dp
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setCornerRadius(float radius) {
         mCornerRadius = radius;
         return this;
@@ -175,6 +184,7 @@ public class KProgressHUD {
      * @param scale Default is 1. If you want double the speed, set the param at 2.
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setAnimationSpeed(int scale) {
         mAnimateSpeed = scale;
         return this;
@@ -184,7 +194,8 @@ public class KProgressHUD {
      * Optional label to be displayed.
      * @return Current HUD
      */
-    public KProgressHUD setLabel(String label) {
+    @NonNull
+    public KProgressHUD setLabel(@Nullable String label) {
         mProgressDialog.setLabel(label);
         return this;
     }
@@ -193,7 +204,8 @@ public class KProgressHUD {
      * Optional label to be displayed
      * @return Current HUD
      */
-    public KProgressHUD setLabel(String label, int color) {
+    @NonNull
+    public KProgressHUD setLabel(@Nullable String label, int color) {
         mProgressDialog.setLabel(label, color);
         return this;
     }
@@ -202,7 +214,8 @@ public class KProgressHUD {
      * Optional detail description to be displayed on the HUD
      * @return Current HUD
      */
-    public KProgressHUD setDetailsLabel(String detailsLabel) {
+    @NonNull
+    public KProgressHUD setDetailsLabel(@Nullable String detailsLabel) {
         mProgressDialog.setDetailsLabel(detailsLabel);
         return this;
     }
@@ -211,7 +224,8 @@ public class KProgressHUD {
      * Optional detail description to be displayed
      * @return Current HUD
      */
-    public KProgressHUD setDetailsLabel(String detailsLabel, int color) {
+    @NonNull
+    public KProgressHUD setDetailsLabel(@Nullable String detailsLabel, int color) {
         mProgressDialog.setDetailsLabel(detailsLabel, color);
         return this;
     }
@@ -220,6 +234,7 @@ public class KProgressHUD {
      * Max value for use in one of the determinate styles
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setMaxProgress(int maxProgress) {
         mMaxProgress = maxProgress;
         return this;
@@ -238,12 +253,9 @@ public class KProgressHUD {
      * @param view Must not be null
      * @return Current HUD
      */
-    public KProgressHUD setCustomView(View view) {
-        if (view != null) {
-            mProgressDialog.setView(view);
-        } else {
-            throw new RuntimeException("Custom view must not be null!");
-        }
+    @NonNull
+    public KProgressHUD setCustomView(@NonNull View view) {
+        mProgressDialog.setView(view);
         return this;
     }
 
@@ -256,6 +268,7 @@ public class KProgressHUD {
      *
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setCancellable(boolean isCancellable) {
         mProgressDialog.setCancelable(isCancellable);
         mProgressDialog.setOnCancelListener(null);
@@ -271,8 +284,9 @@ public class KProgressHUD {
      *
      * @return Current HUD
      */
-    public KProgressHUD setCancellable(DialogInterface.OnCancelListener listener) {
-        mProgressDialog.setCancelable(null != listener);
+    @NonNull
+    public KProgressHUD setCancellable(@Nullable DialogInterface.OnCancelListener listener) {
+        mProgressDialog.setCancelable(listener != null);
         mProgressDialog.setOnCancelListener(listener);
         return this;
     }
@@ -281,6 +295,7 @@ public class KProgressHUD {
      * Specify whether this HUD closes itself if progress reaches max. Default is true.
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setAutoDismiss(boolean isAutoDismiss) {
         mIsAutoDismiss = isAutoDismiss;
         return this;
@@ -295,24 +310,23 @@ public class KProgressHUD {
      * @param graceTimeMs Grace time in milliseconds
      * @return Current HUD
      */
+    @NonNull
     public KProgressHUD setGraceTime(int graceTimeMs) {
         mGraceTimeMs = graceTimeMs;
         return this;
     }
 
+    @NonNull
     public KProgressHUD show() {
         if (!isShowing()) {
             mFinished = false;
             if (mGraceTimeMs == 0) {
                 mProgressDialog.show();
             } else {
-                mGraceTimer = new Handler();
-                mGraceTimer.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mProgressDialog != null && !mFinished) {
-                            mProgressDialog.show();
-                        }
+                mGraceTimer = new Handler(Looper.getMainLooper());
+                mGraceTimer.postDelayed(() -> {
+                    if (mProgressDialog != null && !mFinished) {
+                        mProgressDialog.show();
                     }
                 }, mGraceTimeMs);
             }
@@ -340,7 +354,7 @@ public class KProgressHUD {
         private Determinate mDeterminateView;
         private Indeterminate mIndeterminateView;
         private View mView;
-		private TextView mLabelText;
+        private TextView mLabelText;
         private TextView mDetailsText;
         private String mLabel;
         private String mDetailsLabel;
@@ -349,8 +363,8 @@ public class KProgressHUD {
         private int mWidth, mHeight;
         private int mLabelColor = Color.WHITE;
         private int mDetailColor = Color.WHITE;
-		
-        public ProgressDialog(Context context) {
+
+        public ProgressDialog(@NonNull Context context) {
             super(context);
         }
 
@@ -361,12 +375,14 @@ public class KProgressHUD {
             setContentView(R.layout.kprogresshud_hud);
 
             Window window = getWindow();
-            window.setBackgroundDrawable(new ColorDrawable(0));
-            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.dimAmount = mDimAmount;
-            layoutParams.gravity = Gravity.CENTER;
-            window.setAttributes(layoutParams);
+            if (window != null) {
+                window.setBackgroundDrawable(new ColorDrawable(0));
+                window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                WindowManager.LayoutParams layoutParams = window.getAttributes();
+                layoutParams.dimAmount = mDimAmount;
+                layoutParams.gravity = Gravity.CENTER;
+                window.setAttributes(layoutParams);
+            }
 
             setCanceledOnTouchOutside(false);
 
@@ -374,14 +390,14 @@ public class KProgressHUD {
         }
 
         private void initViews() {
-            mBackgroundLayout = (BackgroundLayout) findViewById(R.id.background);
+            mBackgroundLayout = findViewById(R.id.background);
             mBackgroundLayout.setBaseColor(mWindowColor);
             mBackgroundLayout.setCornerRadius(mCornerRadius);
             if (mWidth != 0) {
                 updateBackgroundSize();
             }
 
-            mCustomViewContainer = (FrameLayout) findViewById(R.id.container);
+            mCustomViewContainer = findViewById(R.id.container);
             addViewToFrame(mView);
 
             if (mDeterminateView != null) {
@@ -391,13 +407,13 @@ public class KProgressHUD {
                 mIndeterminateView.setAnimationSpeed(mAnimateSpeed);
             }
 
-            mLabelText = (TextView) findViewById(R.id.label);
+            mLabelText = findViewById(R.id.label);
             setLabel(mLabel, mLabelColor);
-            mDetailsText = (TextView) findViewById(R.id.details_label);
+            mDetailsText = findViewById(R.id.details_label);
             setDetailsLabel(mDetailsLabel, mDetailColor);
         }
 
-        private void addViewToFrame(View view) {
+        private void addViewToFrame(@Nullable View view) {
             if (view == null) return;
             int wrapParam = ViewGroup.LayoutParams.WRAP_CONTENT;
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(wrapParam, wrapParam);
@@ -420,7 +436,7 @@ public class KProgressHUD {
             }
         }
 
-        public void setView(View view) {
+        public void setView(@Nullable View view) {
             if (view != null) {
                 if (view instanceof Determinate) {
                     mDeterminateView = (Determinate) view;
@@ -436,7 +452,7 @@ public class KProgressHUD {
             }
         }
 
-        public void setLabel(String label) {
+        public void setLabel(@Nullable String label) {
             mLabel = label;
             if (mLabelText != null) {
                 if (label != null) {
@@ -448,7 +464,7 @@ public class KProgressHUD {
             }
         }
 
-        public void setDetailsLabel(String detailsLabel) {
+        public void setDetailsLabel(@Nullable String detailsLabel) {
             mDetailsLabel = detailsLabel;
             if (mDetailsText != null) {
                 if (detailsLabel != null) {
@@ -460,7 +476,7 @@ public class KProgressHUD {
             }
         }
 
-        public void setLabel(String label, int color) {
+        public void setLabel(@Nullable String label, int color) {
             mLabel = label;
             mLabelColor = color;
             if (mLabelText != null) {
@@ -474,7 +490,7 @@ public class KProgressHUD {
             }
         }
 
-        public void setDetailsLabel(String detailsLabel, int color) {
+        public void setDetailsLabel(@Nullable String detailsLabel, int color) {
             mDetailsLabel = detailsLabel;
             mDetailColor = color;
             if (mDetailsText != null) {

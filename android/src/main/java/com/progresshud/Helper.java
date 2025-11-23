@@ -18,11 +18,13 @@ package com.progresshud;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 class Helper {
 
     private static float scale;
 
-    public static int dpToPixel(float dp, Context context) {
+    public static int dpToPixel(float dp, @NonNull Context context) {
         if (scale == 0) {
             scale = context.getResources().getDisplayMetrics().density;
         }
