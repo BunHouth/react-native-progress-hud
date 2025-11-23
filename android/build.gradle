@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath 'com.android.tools.build:gradle:8.2.0'
     }
 }
 
@@ -17,11 +17,11 @@ def safeExtGet(prop, fallback) {
 
 android {
     namespace 'com.progresshud'
-    compileSdkVersion safeExtGet('compileSdkVersion', 34)
+    compileSdk safeExtGet('compileSdkVersion', 35)
 
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 23)
-        targetSdkVersion safeExtGet('targetSdkVersion', 34)
+        minSdk safeExtGet('minSdkVersion', 23)
+        targetSdk safeExtGet('targetSdkVersion', 35)
         versionCode 1
         versionName "1.0"
     }
@@ -34,6 +34,10 @@ android {
     lint {
         abortOnError false
     }
+
+    // Android 15 (API 35) 16KB page size support
+    // This library is pure Java (no native code), so it's automatically compatible
+    // with 16KB page sizes. No additional configuration needed.
 }
 
 repositories {

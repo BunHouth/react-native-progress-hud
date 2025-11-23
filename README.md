@@ -38,8 +38,10 @@ A React Native native module for displaying progress HUD indicators. Uses [SVPro
 
 | Version | React Native | iOS | Android |
 |---------|-------------|-----|---------|
-| 2.x     | >= 0.73     | >= 13.4 | API 23+ |
+| 2.x     | >= 0.73     | >= 13.4 | API 23+ (SDK 35) |
 | 1.x     | < 0.73      | >= 9.0 | API 16+ |
+
+**Android 15 (API 35) Support:** This library is fully compatible with Android 15's 16KB page size requirement as it contains no native code.
 
 ---
 
